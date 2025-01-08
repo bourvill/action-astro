@@ -1,8 +1,14 @@
 name: 'Astro deploy'
 description: 'Deploy astro to S3'
 inputs:
-  bucket:  # id of input
+  bucket:
     description: 'Bucket name'
+    required: true
+  config:
+    description: 'aws config'
+    required: true
+  cred: 
+    description: 'aws cred'
     required: true
 runs:
   using: "composite"
@@ -22,8 +28,8 @@ runs:
       - shell: bash
         name: Setup S3 🔐
         env:
-          AWS_CONFIG: ${{ secrets.AWS_CONFIG }}
-          AWS_CRED: ${{ secrets.AWS_CRED }}
+          AWS_CONFIG: ${{ inputs.config }}
+          AWS_CRED: ${{ inputs.cred }}
         run: |
           mkdir ~/.aws
           touch ~/.aws/config
