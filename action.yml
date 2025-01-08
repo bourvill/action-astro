@@ -19,10 +19,12 @@ runs:
           node-version: 22
           check-latest: true
 
-      - name: Install dependencies 👨🏻‍💻
+      - shell: bash
+        name: Install dependencies 👨🏻‍💻
         run: npm install
 
-      - name: Run build 🔨
+      - shell: bash
+        name: Run build 🔨
         run: npm run build
 
       - shell: bash
@@ -37,7 +39,8 @@ runs:
           echo "$AWS_CONFIG" >> ~/.aws/config
           echo "$AWS_CRED" >> ~/.aws/credentials
 
-      - name: Sync files to S3 bucket 🚀
+      - shell: bash
+        name: Sync files to S3 bucket 🚀
         env:
             BUCKET: ${{ inputs.bucket }}
         run: |
